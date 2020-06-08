@@ -15,18 +15,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class ResourceParser {
-    //存储资源列表
     private static List<VideoResponse> videoList;
 
-    public ResourceParser(){
+    public ResourceParser() {
 
     }
 
-    public ResourceParser(int first){
+    public ResourceParser(int first) {
         getResource();
     }
 
-    private void getResource(){
+    private void getResource() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://beiyou.bytedance.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -65,9 +64,5 @@ public class ResourceParser {
 
     public String getNickname(int pos) {
         return videoList.get(pos).getNickname();
-    }
-
-    public int getLikeCount(int pos) {
-        return videoList.get(pos).getLikeCount();
     }
 }
