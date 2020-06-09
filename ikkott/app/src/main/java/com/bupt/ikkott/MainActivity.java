@@ -9,28 +9,28 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 public class MainActivity extends AppCompatActivity {
-    static final int REQUEST_VIDEO_CAPTURE = 1;
-    //请求状态码
-    private static final int REQUEST_PERMISSION_CODE = 1;
-    ResourceParser parser;
+    VideoParser parser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 隐藏状态栏和标题栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN); //状态栏隐藏
-        getSupportActionBar().hide(); //标题栏隐藏
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
+        // 初始化 MainActivity
         setContentView(R.layout.activity_main_view);
-        parser = new ResourceParser(1);
+
+        // 拉取并解析视频资源
+        parser = new VideoParser(1);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             return;
         }
-        addDefaultFragment();
-    }
 
-    public void addDefaultFragment() {
+        // 初始化添加一些组件
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         RecyclerFragment recyclerFragment = new RecyclerFragment();

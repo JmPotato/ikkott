@@ -7,13 +7,13 @@ import com.bupt.ikkott.player.VideoPlayerIJK;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 
-public class ResourcePlayer {
+public class VideoPlayer {
 
     private static boolean isPlay;
     private VideoPlayerIJK ijkPlayer;
     private String resource;
 
-    public ResourcePlayer(VideoPlayerIJK ijkPlayer, String resource) {
+    public VideoPlayer(VideoPlayerIJK ijkPlayer, String resource) {
         this.ijkPlayer = ijkPlayer;
         this.resource = resource;
         isPlay = true;

@@ -14,14 +14,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class ResourceParser {
+public class VideoParser {
     private static List<VideoResponse> videoList;
 
-    public ResourceParser() {
+    // 通过重载构造函数，实现单例模式
+    public VideoParser() {
 
     }
 
-    public ResourceParser(int first) {
+    public VideoParser(int first) {
         getResource();
     }
 

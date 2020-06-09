@@ -3,7 +3,6 @@ package com.bupt.ikkott.player;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
@@ -20,15 +19,8 @@ import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class VideoPlayerIJK extends FrameLayout {
-    private static final String TEG = "LXX";
-    /**
-     * 由ijkplayer提供，用于播放视频，需要给他传入一个surfaceView
-     */
     private IMediaPlayer mMediaPlayer = null;
     private boolean hasCreateSurfaceView = false;
-    /**
-     * 视频文件地址
-     */
     private String mPath = "";
     private int resId = 0;
     private SurfaceView surfaceView;
@@ -73,14 +65,12 @@ public class VideoPlayerIJK extends FrameLayout {
         load(resId);
     }
 
-    /**
-     * 新建一个surfaceview
-     */
+
     private void createSurfaceView() {
         if (hasCreateSurfaceView) {
             return;
         }
-        //生成一个新的surface view
+        // 生成一个新的 SurfaceView
         surfaceView = new SurfaceView(mContext);
         surfaceView.getHolder().addCallback(new PlayerSurfaceCallback());
         ViewGroup.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT
@@ -88,16 +78,11 @@ public class VideoPlayerIJK extends FrameLayout {
         surfaceView.setLayoutParams(layoutParams);
         addView(surfaceView);
         hasCreateSurfaceView = true;
-        int height = surfaceView.getHeight();
-        Log.d("LXX", String.valueOf(height));
         setListener(new VideoPlayerListener(surfaceView));
     }
 
-    /**
-     * 加载视频
-     */
     private void load() {
-        //每次都要重新创建IMediaPlayer
+        // 要重新创建 IMediaPlayer
         createPlayer();
         try {
             mMediaPlayer.setDataSource(mPath);
@@ -106,20 +91,14 @@ public class VideoPlayerIJK extends FrameLayout {
         }
     }
 
-    /**
-     * 加载视频
-     */
     private void load(int resourceId) {
-        //每次都要重新创建IMediaPlayer
+        // 重新创建 IMediaPlayer
         createPlayer();
         AssetFileDescriptor fileDescriptor = mContext.getResources().openRawResourceFd(resourceId);
         RawDataSourceProvider provider = new RawDataSourceProvider(fileDescriptor);
         mMediaPlayer.setDataSource(provider);
     }
 
-    /**
-     * 创建一个新的player
-     */
     private void createPlayer() {
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
@@ -127,9 +106,8 @@ public class VideoPlayerIJK extends FrameLayout {
             mMediaPlayer.release();
         }
         IjkMediaPlayer ijkMediaPlayer = new IjkMediaPlayer();
-//        ijkMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_DEBUG);
 
-        //开启硬解码
+        // 硬解码
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);
 
         mMediaPlayer = ijkMediaPlayer;
@@ -150,21 +128,9 @@ public class VideoPlayerIJK extends FrameLayout {
         }
     }
 
-    /**
-     * -------======--------- 下面封装了一下控制视频的方法
-     */
-
     public void start() {
         if (mMediaPlayer != null) {
             mMediaPlayer.start();
-        }
-    }
-
-    public void release() {
-        if (mMediaPlayer != null) {
-            mMediaPlayer.reset();
-            mMediaPlayer.release();
-            mMediaPlayer = null;
         }
     }
 
@@ -180,49 +146,10 @@ public class VideoPlayerIJK extends FrameLayout {
         }
     }
 
-    public void reset() {
-        if (mMediaPlayer != null) {
-            mMediaPlayer.reset();
-        }
-    }
 
-    public long getDuration() {
-        if (mMediaPlayer != null) {
-            return mMediaPlayer.getDuration();
-        } else {
-            return 0;
-        }
-    }
-
-    public long getCurrentPosition() {
-        if (mMediaPlayer != null) {
-            return mMediaPlayer.getCurrentPosition();
-        } else {
-            return 0;
-        }
-    }
-
-    public boolean isPlaying() {
-        if (mMediaPlayer != null) {
-            return mMediaPlayer.isPlaying();
-        }
-        return false;
-    }
-
-    public void seekTo(long l) {
-        if (mMediaPlayer != null) {
-            mMediaPlayer.seekTo(l);
-        }
-    }
-
-    /**
-     * surfaceView的监听器
-     */
     private class PlayerSurfaceCallback implements SurfaceHolder.Callback {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-            //surfaceview创建成功后，加载视频
-            //给mediaPlayer设置视图
             mMediaPlayer.setDisplay(holder);
             mMediaPlayer.prepareAsync();
         }
