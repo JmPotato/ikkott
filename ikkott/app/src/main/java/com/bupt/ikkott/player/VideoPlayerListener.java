@@ -1,7 +1,6 @@
 package com.bupt.ikkott.player;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceView;
 import android.view.WindowManager;
@@ -38,7 +37,6 @@ public class VideoPlayerListener implements IMediaPlayer.OnBufferingUpdateListen
 
     @Override
     public void onPrepared(IMediaPlayer iMediaPlayer) {
-//        iMediaPlayer.start();
         changeWidthAndHeight(iMediaPlayer);
     }
 
@@ -61,19 +59,11 @@ public class VideoPlayerListener implements IMediaPlayer.OnBufferingUpdateListen
         int surfaceWidth = wm.getDefaultDisplay().getWidth();
         int surfaceHeight = wm.getDefaultDisplay().getHeight();
 
-        Log.d("LXX", String.valueOf(videoWidth) + "\n");
-        Log.d("LXX", String.valueOf(videoHeight) + "\n");
-        Log.d("LXX", String.valueOf(surfaceWidth) + "\n");
-        Log.d("LXX", String.valueOf(surfaceHeight) + "\n");
-
         float max;
         max = Math.max((float) videoWidth / (float) surfaceWidth, (float) videoHeight / (float) surfaceHeight);
-        //视频宽高分别/最大倍数值 计算出放大后的视频尺寸
         videoWidth = (int) Math.ceil((float) videoWidth / max);
         videoHeight = (int) Math.ceil((float) videoHeight / max);
-        Log.d("LXX", String.valueOf(videoWidth) + String.valueOf(videoHeight));
 
-        //无法直接设置视频尺寸，将计算出的视频尺寸设置到surfaceView 让视频自动填充。
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(videoWidth, videoHeight);
         params.gravity = Gravity.CENTER;
         surfaceView.setLayoutParams(params);

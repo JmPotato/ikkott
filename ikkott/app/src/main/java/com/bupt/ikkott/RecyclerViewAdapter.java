@@ -23,14 +23,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private int mNumberItems;
     private Context context;
 
-    private ResourceParser parser;
+    private VideoParser parser;
 
     public RecyclerViewAdapter(Context context, int numListItems, ListItemClickListener listener) {
         mNumberItems = numListItems;
         mOnClickListener = listener;
         viewHolderCount = 0;
         this.context = context;
-        parser = new ResourceParser();
+        parser = new VideoParser();
     }
 
     @NonNull
@@ -97,7 +97,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             desc_text.setText("" + parser.getDescription(position));
             author_text.setText("用户：" + parser.getNickname(position));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            Glide.with(imageView.getContext()) //使用Glide加载封面图
+            Glide.with(imageView.getContext()) //使用 Glide 加载封面
                     .setDefaultRequestOptions(
                             new RequestOptions()
                                     .frame(1000000)

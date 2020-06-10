@@ -18,11 +18,12 @@ public class ViewPagerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN); //状态栏隐藏
-        getSupportActionBar().hide(); //标题栏隐藏
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         setContentView(R.layout.view_pager2);
         viewPager2 = findViewById(R.id.view_pager2);
-        //从recyclerview拿到初始点击位置，传给viewpager2的adapter
+
+        // 使用 Intent 传递视频 offset，以定位视频资源位置
         Intent intent = getIntent();
         int initPos = intent.getIntExtra("initPos", 0);
         ViewPagerAdapter adapter = new ViewPagerAdapter(initPos);
@@ -31,8 +32,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        //界面退出时，还在播放
-        //为解决这一问题使用从容器外部使用getChildAt()方法拿到内部的item
+        // 防止用户退出后视频依然播放，手动进行处理
         super.onDestroy();
         VideoPlayerIJK player = viewPager2.getChildAt(0).findViewById(R.id.ijk_player_view);
         player.pause();

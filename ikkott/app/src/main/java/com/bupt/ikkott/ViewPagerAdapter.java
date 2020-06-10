@@ -14,12 +14,12 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     private static int viewHolderCount;
     private final int initPosition;
     private int mNumberItems;
-    private ResourceParser parser;
+    private VideoParser parser;
 
     public ViewPagerAdapter(int initPos) {
         viewHolderCount = 0;
         initPosition = initPos;
-        parser = new ResourceParser();
+        parser = new VideoParser();
         mNumberItems = parser.size();
     }
 
@@ -62,7 +62,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
 
     public class PagerViewHolder extends RecyclerView.ViewHolder {
         private VideoPlayerIJK ijkPlayer;
-        private ResourcePlayer resourcePlayer;
+        private VideoPlayer videoPlayer;
 
         public PagerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,7 +73,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
         public void bind(int position) {
             int currentPos = (position + initPosition) % mNumberItems;
             String resourceURI = parser.getFeedURL(currentPos);
-            resourcePlayer = new ResourcePlayer(ijkPlayer, resourceURI);
+            videoPlayer = new VideoPlayer(ijkPlayer, resourceURI);
         }
     }
 }
