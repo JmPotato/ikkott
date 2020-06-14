@@ -13,17 +13,25 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
+@SuppressWarnings("WeakerAccess")
 public class VideoParser {
-    private static List<VideoResponse> videoList;
+    private static VideoParser singleVideoPaser;
+    private List<VideoResponse> videoList;
 
-    // 通过重载构造函数，实现单例模式
-    public VideoParser() {
-
+    private VideoParser() {
+        getResource();
     }
 
-    public VideoParser(int first) {
+    /*public VideoParser(int first) {
         getResource();
+    }*/
+
+    //懒汉式单例
+    public static VideoParser getInstance(){
+        if (singleVideoPaser == null){
+            singleVideoPaser = new VideoParser();
+        }
+        return singleVideoPaser;
     }
 
     private void getResource() {
@@ -51,6 +59,7 @@ public class VideoParser {
         });
     }
 
+    //确定recycleview的列表长度
     public int size() {
         return videoList.size();
     }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bupt.ikkott.player.VideoPlayerIJK;
 
+@SuppressWarnings("WeakerAccess")
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder> {
     private static int viewHolderCount;
     private final int initPosition;
@@ -19,7 +20,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.Page
     public ViewPagerAdapter(int initPos) {
         viewHolderCount = 0;
         initPosition = initPos;
-        parser = new VideoParser();
+        parser = VideoParser.getInstance();
         mNumberItems = parser.size();
     }
 

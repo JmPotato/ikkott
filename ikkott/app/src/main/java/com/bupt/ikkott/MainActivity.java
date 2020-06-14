@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_view);
 
         // 拉取并解析视频资源
-        parser = new VideoParser(1);
+        parser = VideoParser.getInstance();
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {

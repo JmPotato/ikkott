@@ -16,7 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 
-
+@SuppressWarnings("WeakerAccess")
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.NumberViewHolder> {
     private static int viewHolderCount;
     private final ListItemClickListener mOnClickListener;
@@ -30,7 +30,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         mOnClickListener = listener;
         viewHolderCount = 0;
         this.context = context;
-        parser = new VideoParser();
+        parser = VideoParser.getInstance();
     }
 
     @NonNull
